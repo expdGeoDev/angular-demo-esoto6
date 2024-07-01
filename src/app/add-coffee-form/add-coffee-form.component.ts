@@ -39,14 +39,14 @@ export class AddCoffeeFormComponent {
   }
 
   constructor(
-    private fb: FormBuilder, 
-    private coffeeService: CoffeeHttpService, 
+    private fb: FormBuilder,
+    private coffeeService: CoffeeHttpService,
     private toaster: ToastrService
   ) { }
 
   ngOnInit(): void {
 
-    
+
     this.coffeeForm = this.fb.group({
       brand: ['', Validators.required],
       groundOrBeans: ['Bean'],
@@ -62,7 +62,7 @@ export class AddCoffeeFormComponent {
   }
 
   onSubmit(): void {
-    
+
     const formData = this.coffeeForm.value;
     if (this.coffeeForm.valid) {
       const formData = this.coffeeForm.value;
@@ -71,18 +71,17 @@ export class AddCoffeeFormComponent {
         response => {
           console.log('Entry Submitted successfully', response);
           this.clearForm();
-          this.toaster.success("Entry Submitted Successfully", "Sucess");
+          this.toaster.success("Entry Submitted Successfully", "Success");
         },
         error => {
           console.error('Submission Failed..', error);
-          this.toaster.error("Submission Failed ", "Error");
+          this.toaster.error("Submission Failed Check API Server ", "Error");
         }
-        
+
       )
     } else {
-      console.error("Invalid Form");
-      console.log(formData);
-      this.toaster.error("Please Fill Coffee Brand", "Error");
+      console.error("Invalid Form", formData);
+      this.toaster.warning("Please Fill Required Fields", "Warning");
     }
 
   }
